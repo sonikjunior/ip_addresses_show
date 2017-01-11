@@ -8,22 +8,33 @@ import java.util.List;
 
 public class ipAddresses {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String first_ip = reader.readLine();
-        String last_ip = reader.readLine();
+            System.out.println("Ввведите начальный ip-адрес:");
+            String first_ip = reader.readLine();
+            System.out.println("Введите конечный ip-адрес:");
+            String last_ip = reader.readLine();
 
-        int[] first_ip_arr = stringParser(first_ip);
-        int[] last_ip_arr = stringParser(last_ip);
+            int[] first_ip_arr = stringParser(first_ip);
+            int[] last_ip_arr = stringParser(last_ip);
+            long first = ipArrToLong(first_ip_arr);
+            long last = ipArrToLong(last_ip_arr);
 
-        long first = ipArrToLong(first_ip_arr);
-        long last = ipArrToLong(last_ip_arr);
-
-        while (first<last-1) {
-            first++;
-            System.out.println(longToString(first));
+            System.out.println();
+            System.out.println("Результат:");
+            while (first < last - 1) {
+                first++;
+                System.out.println(longToString(first));
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Не правильно введен ip. Скорее всего вы ввели буквы вместо цифр или запятые вместо точек");
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Не правильно введен ip. Скорее всего вы ввели не все 4 секции Ip адреса");
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -45,7 +56,7 @@ public class ipAddresses {
         return buffer.toString();
     }
 
-    public static int[] stringParser(String string){
+    public static int[] stringParser(String string) throws NumberFormatException{
 
         List<String> ip_list = new ArrayList<String>();
         String ip_block="";
