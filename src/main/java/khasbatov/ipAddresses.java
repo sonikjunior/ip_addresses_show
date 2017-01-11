@@ -20,6 +20,7 @@ public class ipAddresses {
 
             int[] first_ip_arr = stringParser(first_ip);
             int[] last_ip_arr = stringParser(last_ip);
+
             long first = ipArrToLong(first_ip_arr);
             long last = ipArrToLong(last_ip_arr);
 
